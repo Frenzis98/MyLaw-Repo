@@ -3,12 +3,12 @@
 #include <cstdlib>
 
 using namespace std;
-
+///////////////////////////////////////////
 void Password(int &flag)
 {
     int sforzo=0;
     flag = 1;
-    string codice, psw = "bocciato";
+    string codice, psw = "bocciato"; //Password
     cout << "######################\n"
          << "## Password in C++  ##\n"
          << "## By Frenzis-MyLaw ##\n"
@@ -32,6 +32,7 @@ void Password(int &flag)
       }
     }while (codice!=psw);
 }
+////////////////////////////////////////////
 int Ceck (int &flag)
 {
     if (flag == 0)
@@ -44,6 +45,7 @@ int Ceck (int &flag)
     system("PAUSE");
     return flag;
 }
+/////////////////////////////////////
 int main()
 {
     int flag=0;
