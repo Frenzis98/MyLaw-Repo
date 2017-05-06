@@ -4,23 +4,28 @@
 
 
 using namespace std;
-/////// CAMPO ////////
+///////////////////// CAMPO //////////////////
 #define N 10
 short int campo [N] [N] {{0},{0}};
 short int navi [5];
-
+///////////////////// RESET CAMPO ////////////////////////////
 void Reset (void)
 {
-    for (int x=0; x<10; x++)
+    for (int x=0; x<N; x++) // un caricamento di 0 'reset'
     {
         for (int y=0;y<10;y++)
         {
             campo [x] [y] =0;
         }
     }
+    for (int i=0;i<6;i++)
+    {
+        navi[i]=0;
+    }
     cout << "Reset Completato" << endl;
     system("PAUSE");
 }
+////////////////////////// VERSO DESTRA ////////////////////////
 void DirezioneRight(int num)
 {
     int x, y, ck;
@@ -47,6 +52,7 @@ void DirezioneRight(int num)
         }
         cout << "Posizionata! Right"<<endl;
 }
+/////////////////////// VERSO SINISTRA //////////////////////////
 void DirezioneLeft(int num)
 {
     int x, y, ck;
@@ -73,6 +79,7 @@ void DirezioneLeft(int num)
         }
         cout << "Posizionata! Left"<<endl;
 }
+///////////////////// VERSO GIU ////////////////////////////
 void DirezioneDown(int num)
 {
     int x, y, ck;
@@ -87,7 +94,7 @@ void DirezioneDown(int num)
             if ((tempX+num)<10 && campo [tempX][y]==0)
                 {
                     ck+=1;
-                    tempX+=1;
+                    tempX+=1; // va avanti nella matrice
                 }
         }
     }while(ck!=num);
@@ -99,36 +106,37 @@ void DirezioneDown(int num)
         }
         cout << "Posizionata! Right"<<endl;
 }
-void DirezioneUp(int num)
+/////////////////////// VERSO SU //////////////////////////// --Spiegazione
+void DirezioneUp(int num) // 'num' numero della nave
 {
     int x, y, ck;
     do
     {
-        ck =0;
-        x = rand() %10;
+        ck =0; //resetta il check
+        x = rand() %10; //genera un punto di parteza
         y = rand() %10;
         for (int k=0;k<num;k++)
         {
-            int tempX = x;
-            if ((tempX-num)>-1 && campo [tempX][y]==0)
+            int tempX = x;// Fa una copia
+            if ((tempX-num)>-1 && campo [tempX][y]==0) //controlla se e libero '0'
                 {
-                    ck+=1;
-                    tempX-=1;
+                    ck+=1; //Aggiunge +1 per il check finale
+                    tempX-=1; //Va indietro nella matrice.
                 }
         }
     }while(ck!=num);
-    int val = x - num;
-    for (int i=x;i>val;i--)
+    int val = x - num; //una condizione per il ciclo for
+    for (int i=x;i>val;i--) //Salva il valore nella matrice
         {
             campo[i][y]=num;
             cout << "LogUp: PosX= "<< i <<" PosY= " << y << endl;
         }
         cout << "Posizionata! UP"<<endl;
 }
-/////////////////////////////////////////////////////////////
+//////////////////////// ARRAY LOAD NAVI ////////////////////////////
 void NumeroNavi (void)
 {
-    for (int i=0;i<4;i++)
+    for (int i=0;i<4;i++) //un semplice caricamento di un array
     {
         cout << "How many ships do " << (i+1) << " : ";
         cin >> navi[i];
@@ -136,7 +144,8 @@ void NumeroNavi (void)
     cout << "Loaded..."<<endl;
     system("PAUSE");
 }
-void DirezioneNavi(void)
+//////////////////// SMISTATORE DIREZIONALE ///////////////////////
+void DirezioneNavi(void) //(i+1) diventa la variabile "num"
 {
     for (int i=4;i>-1;i--)
     {
@@ -160,6 +169,7 @@ void DirezioneNavi(void)
     }cout << "Completato" << endl;
     system("PAUSE");
 }
+///////////////// GRAFICA CAMPO ///////////////////////
 void Stampa(void)
 {
     for(int i=0;i<N;i++)
@@ -172,6 +182,7 @@ void Stampa(void)
     }
     system("PAUSE");
 }
+//////////////// NON TOCCARE /////////////////
 void Password(int &flag)
 {
     int sforzo=0;
@@ -225,7 +236,7 @@ int main()
     if (flag == 0) return 0;
     do{
     system("cls"); indietro = false;
-///////// MENU ////////
+/////////////////////// MENU //////////////////////////
     cout << "Battaglia Navale || Vers: 1.5 ||" << endl
          << "1. Reset" << endl
          << "2. Number Ship" << endl
@@ -233,7 +244,7 @@ int main()
          << "4. Label" << endl
          << "Select Option : ";
     cin >> sel;
-///////// SWITCH /////////
+//////////////////////// SWITCH /////////////////////
     switch (sel)
     {
         case (1) : Reset();indietro = true; break;
@@ -243,9 +254,5 @@ int main()
         default : cout << "Error(Funzione non trovata)"<<endl; indietro = true;system("PAUSE"); break;
     }
     }while(indietro == true);
-
-
-
-
     return 0;
 }
