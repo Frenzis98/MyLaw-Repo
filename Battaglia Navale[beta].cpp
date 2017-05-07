@@ -25,6 +25,13 @@ void Reset (void)
     cout << "Reset Completato" << endl;
     system("PAUSE");
 }
+/*
+Punto casuale x-y
+controlla se ha colpito
+FALSO Ritorna su genera x-y
+VERO
+    VERO
+*/
 ////////////////////////// VERSO DESTRA ////////////////////////
 void DirezioneRight(int num)
 {
@@ -37,14 +44,23 @@ void DirezioneRight(int num)
         for (int k=0;k<num;k++)
         {
             int tempY = y;
-            if ((tempY+num)<10 && campo [x][tempY]==0)
+            if ((tempY+num)<10)
                 {
-                    ck+=1;
-                    tempY+=1;
-                }
+                    if (campo [x][tempY]!=0)
+                    {
+                        ck=0;
+                        break;
+                    }else
+                    {
+                        ck+=1;
+                        tempY+=1;
+                        cout << ck << " of " << num <<endl;
+                    }
+                }else ck-=10;
         }
     }while(ck!=num);
     int val = num + y;
+    cout << "Ship of " << num <<endl;
     for (int i=y;i<val;i++)
         {
             campo[x][i]=num;
@@ -64,14 +80,24 @@ void DirezioneLeft(int num)
         for (int k=0;k<num;k++)
         {
             int tempY = y;
-            if ((tempY-num)>-1 && campo [x][tempY]==0)
+            if ((tempY-num)>-1)
                 {
-                    ck+=1;
-                    tempY-=1;
-                }
+                    if (campo [x][tempY]!=0)
+                    {
+                        ck=0;
+                        break;
+                    }else
+                    {
+                        ck+=1;
+                        tempY-=1;
+                        cout << ck << " of " << num <<endl;
+                    }
+
+                }else ck-=10;
         }
     }while(ck!=num);
-    int val = y - num;
+    int val = (y - num)*+1;
+    cout << "Ship of " << num <<endl;
     for (int i=y;i>val;i--)
         {
             campo[x][i]=num;
@@ -91,20 +117,29 @@ void DirezioneDown(int num)
         for (int k=0;k<num;k++)
         {
             int tempX = x;
-            if ((tempX+num)<10 && campo [tempX][y]==0)
+            if ((tempX+num)<10)
                 {
-                    ck+=1;
-                    tempX+=1; // va avanti nella matrice
-                }
+                    if (campo [tempX][y]!=0)
+                    {
+                        ck=0;
+                        break;
+                    }else
+                    {
+                        ck+=1;
+                        tempX+=1; // va avanti nella matrice
+                        cout << ck << " of " << num <<endl;
+                    }
+                }else ck-=10;
         }
     }while(ck!=num);
     int val = num + x;
+    cout << "Ship of " << num <<endl;
     for (int i=x;i<val;i++)
         {
             campo[i][y]=num;
             cout << "LogDown: PosX= "<< i <<" PosY= " << x << endl;
         }
-        cout << "Posizionata! Right"<<endl;
+        cout << "Posizionata! Down"<<endl;
 }
 /////////////////////// VERSO SU //////////////////////////// --Spiegazione
 void DirezioneUp(int num) // 'num' numero della nave
@@ -118,14 +153,23 @@ void DirezioneUp(int num) // 'num' numero della nave
         for (int k=0;k<num;k++)
         {
             int tempX = x;// Fa una copia
-            if ((tempX-num)>-1 && campo [tempX][y]==0) //controlla se e libero '0'
+            if ((tempX-num)>-1) //controlla se e libero '0'
                 {
-                    ck+=1; //Aggiunge +1 per il check finale
-                    tempX-=1; //Va indietro nella matrice.
-                }
+                    if (campo [tempX][y]!=0)
+                    {
+                        ck=0;
+                        break;
+                    }else
+                    {
+                        ck+=1; //Aggiunge +1 per il check finale
+                        tempX-=1; //Va indietro nella matrice.
+                        cout << ck << " of " << num <<endl;
+                    }
+                }else ck-=10;
         }
     }while(ck!=num);
-    int val = x - num; //una condizione per il ciclo for
+    int val = (x - num)*+1; //una condizione per il ciclo for
+    cout << "Ship of " << num <<endl;
     for (int i=x;i>val;i--) //Salva il valore nella matrice
         {
             campo[i][y]=num;
@@ -154,16 +198,16 @@ void DirezioneNavi(void) //(i+1) diventa la variabile "num"
             int direzione = rand() % 4;
             if (direzione == 0)
             {
-                DirezioneDown(i+1);
+                DirezioneDown(i+1); //verso giu
             }else if (direzione == 1)
             {
-                DirezioneUp(i+1);
+                DirezioneUp(i+1);  //Verso su
             }else if (direzione == 2)
             {
-                DirezioneLeft(i+1);
+                DirezioneLeft(i+1); //Verso sinistra
             }else if (direzione ==3)
             {
-                DirezioneRight(i+1);
+                DirezioneRight(i+1); //Verso destra
             }
         }
     }cout << "Completato" << endl;
